@@ -4,9 +4,7 @@ pipeline{
     }
 
 
-  agent { 
-    docker { dockerfile true } 
-  }
+  agent any
     stages{
 /*
         stage("Build Docker Image") {
