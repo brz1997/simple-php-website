@@ -1,6 +1,6 @@
 pipeline{
     environment {
-        def imageName = "afouruser/afour-services:PHP-POC-${env.BRANCH_NAME}-v0.0-${env.BUILD_ID}"
+        ANSIBLE_PRIVATE_KEY=credentials('KTvm-private-key')
     }
 
 
@@ -8,7 +8,7 @@ pipeline{
     docker { dockerfile true } 
   }
     stages{
-
+/*
         stage("Build Docker Image") {
           steps{
             script {
@@ -29,15 +29,11 @@ pipeline{
             }
           }
         }
+        */
 
-        stage("Deploy service on k8s-bm-staging") {
-          when{
-                branch 'main'
-          }
+        stage("Deploy via Ansible") {
           steps {
-            kubernetesDeploy(kubeconfigId: 'bm-staging-kubeconfig',
-               configs: 'nodePOC.yaml',
-               enableConfigSubstitution: true)
+                sh 'ansible-playbook -i ansible.inv --private-key=$ANSIBLE_PRIVATE_KEY main.yml'
             }
         }
 
