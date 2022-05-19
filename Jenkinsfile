@@ -4,7 +4,7 @@ pipeline{
     }
 
 
-  agent { dockerfile true }
+  agent any
     stages{
 /*
         stage("Build Docker Image") {
@@ -31,7 +31,7 @@ pipeline{
 
         stage("Deploy via Ansible") {
           steps {
-                 ansible-playbook -i ansible.inv --private-key=$ANSIBLE_PRIVATE_KEY main.yml
+                sh 'ansible-playbook -i ansible.inv --private-key=$ANSIBLE_PRIVATE_KEY main.yml'
              /*  ansiblePlaybook disableHostKeyChecking: true, installation: 'ansible', inventory: 'ansible.inv', playbook: 'main.yml', vaultCredentialsId: 'KTvm-private-key'
             */
               echo "Hello"
