@@ -2,10 +2,10 @@
 
 - hosts: group1
   tasks:
-  - name: Enable SELinux
+  - name: Disable SELinux
     selinux:
-      state: enabled
-    register: enable_selinux
+      state: disabled
+    register: disable_selinux
   - name: Install lldpad package
     yum:
       name: lldpad
