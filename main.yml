@@ -1,0 +1,20 @@
+---
+
+- hosts: group1
+  tasks:
+  - name: Enable SELinux
+    selinux:
+      state: enabled
+    register: enable_selinux
+  - name: Install lldpad package
+    yum:
+      name: lldpad
+      state: latest
+  - name: check lldpad service status
+    service:
+      name: lldpad
+      state: started
+  - name: Install apache
+    yum:
+      name: httpd
+      state: present
