@@ -1,10 +1,10 @@
 pipeline{
     environment {
-        def imageName = "krashnat922/devops-ansible-poc:ec2${env.BUILD_ID}"
+        def imageName = "krashnat922/devops-ansible-poc:ec235"
         ANSIBLE_PRIVATE_KEY=credentials('KTvm-private-key')
     }
 
-
+/*
     agent any
     stages{
 
@@ -29,12 +29,12 @@ pipeline{
           }
         }
         
-
+*/
         stage("Deploy via Ansible") {
           steps {
               //sh 'pip install --upgrade requests==2.20.1'
               //sh 'echo -e "[defaults]\nremote_tmp     = /tmp/ansible-$USER\nsudo_user      = root\nsudo           = true" > ansible.cfg'
-              //sh 'ansible --version'
+              sh 'ansible --version'
               //sh 'ansible-playbook create_ec2.yml'
                 /*sh 'ansible-playbook -i ansible.inv --private-key=$ANSIBLE_PRIVATE_KEY main.yml'
              /*  ansiblePlaybook disableHostKeyChecking: true, installation: 'ansible', inventory: 'ansible.inv', playbook: 'main.yml', vaultCredentialsId: 'KTvm-private-key'
