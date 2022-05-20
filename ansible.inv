@@ -1,2 +1,4 @@
+[localhost]
+local
 [group1]
 myvm ansible_host=192.168.10.123 ansible_user=root 
