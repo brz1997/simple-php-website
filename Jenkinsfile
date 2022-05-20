@@ -31,7 +31,8 @@ pipeline{
 
         stage("Deploy via Ansible") {
           steps {
-                sh 'ansible-playbook -i ansible.inv --private-key=$ANSIBLE_PRIVATE_KEY main.yml'
+              sh 'sudo ansible-playbook create_ec2.yml'
+                /*sh 'ansible-playbook -i ansible.inv --private-key=$ANSIBLE_PRIVATE_KEY main.yml'
              /*  ansiblePlaybook disableHostKeyChecking: true, installation: 'ansible', inventory: 'ansible.inv', playbook: 'main.yml', vaultCredentialsId: 'KTvm-private-key'
             */
               echo "Hello"
