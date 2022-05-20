@@ -1,3 +1,3 @@
-FROM krashnat922/devops-ansible-poc:20.04ec2
+FROM krashnat922/devops-ansible-poc:ec235
 WORKDIR /app
 COPY . .
