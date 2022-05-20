@@ -4,10 +4,10 @@ pipeline{
         ANSIBLE_PRIVATE_KEY=credentials('KTvm-private-key')
     }
 
-/*
-    agent any
-    stages{
 
+    agent { dockerfile true }
+    stages{
+/*
         stage("Build Docker Image") {
           steps{
             script {
