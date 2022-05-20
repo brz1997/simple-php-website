@@ -1,6 +1,7 @@
 FROM ubuntu:18.04
 ENV DEBIAN_FRONTEND=noninteractive
 WORKDIR /app
+CMD export PYTHONIOENCODING=utf8
 RUN apt-get update && \
   apt-get install -y gcc python-dev libkrb5-dev && \
   apt-get install python3-pip -y && \
@@ -14,5 +15,5 @@ RUN apt-get update && \
   pip3 install boto3 && \
   pip3 install awscli && \
   pip3 install --upgrade requests==2.20.1
-  
+ 
 COPY . .
