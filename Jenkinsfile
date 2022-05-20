@@ -4,9 +4,7 @@ pipeline{
     }
 
 
-    agent { 
-        docker { image 'krashnat922/devops-ansible-poc:latest' }
-    }
+    agent { dockerfile true }
     stages{
 /*
         stage("Build Docker Image") {
