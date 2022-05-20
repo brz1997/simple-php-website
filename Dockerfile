@@ -5,7 +5,7 @@ ENV LC_ALL en_US.UTF-8
 RUN apt-get update
 RUN apt-get install -y language-pack-en locales
 RUN apt-get install -y python3 python3-cryptography python3-dev python3-pip python3-setuptools python3-wheel
-RUN locale-gen en_US.UTF-8 LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 pip3 install ansible
+RUN locale-gen en_US.UTF-8 && dpkg-reconfigure locales && LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 pip3 install ansible
 
 RUN apt remove python -y && \
   pip3 install gitpython && \
