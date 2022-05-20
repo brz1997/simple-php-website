@@ -5,4 +5,3 @@ RUN pip3 install gitpython && \
   pip3 install boto3 && \
   pip3 install awscli
 COPY . .
-CMD echo -e "[defaults]\nremote_tmp     = /tmp/ansible-$USER\nsudo_user      = root\nsudo           = true" > ansible.cfg
