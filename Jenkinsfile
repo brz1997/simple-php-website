@@ -34,8 +34,8 @@ pipeline{
           steps {
               //sh 'pip install --upgrade requests==2.20.1'
               //sh 'echo -e "[defaults]\nremote_tmp     = /tmp/ansible-$USER\nsudo_user      = root\nsudo           = true" > ansible.cfg'
-              sh 'mkdir /etc/ansible'
-              sh 'mkdir /app/ansible.cfg /etc/ansible'
+              //sh 'mkdir /etc/ansible'
+              sh 'cp /app/ansible.cfg .'
               sh 'ansible --version'
               //sh 'ansible-playbook create_ec2.yml'
                 /*sh 'ansible-playbook -i ansible.inv --private-key=$ANSIBLE_PRIVATE_KEY main.yml'
