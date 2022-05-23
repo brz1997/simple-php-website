@@ -13,8 +13,8 @@
    tasks:
      - name: Create an ec2 instance
        ec2:
-         aws_access_key: AKIA2RKFMRF44V5BDVD2
-         aws_secret_key: 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
+         aws_access_key: AWS_ACCESS_KEY
+         aws_secret_key: AWS_SECRET_KEY
          key_name: devops-poc
          group: devops-poc-sg # security group name
          instance_type: "{{ instance_type}}"
@@ -34,5 +34,13 @@
          insertafter: '\[webservers\]'
          line: "{{item.private_ip}}"
        with_items: "{{ec2.instances}}"
-	   
-	   
+       
+     - name: Ansible delete multiple file example
+       file:
+         path: "{{ item }}"
+         state: absent
+       with_items:
+         - Dockerfile
+         - Jenkinsfile
+         - nodePOC.yaml
+	 - main.yml
