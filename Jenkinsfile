@@ -1,13 +1,13 @@
 pipeline{
     environment {
-        def imageName = "krashnat922/devops-ansible-poc:ec240"
+        def imageName = "krashnat922/devops-ansible-poc:ec2${env.BUILD_ID}"
         ANSIBLE_PRIVATE_KEY=credentials('KTvm-private-key')
     }
 
 
-    agent { dockerfile true }
+    agent any
     stages{
-/*
+
         stage("Build Docker Image") {
           steps{
             script {
@@ -28,7 +28,7 @@ pipeline{
             }
           }
         }
-       */ 
+/* 
 
         stage("Deploy via Ansible") {
           steps {
@@ -42,12 +42,13 @@ pipeline{
               //sh 'ansible-playbook create_ec2.yml'
                 /*sh 'ansible-playbook -i ansible.inv --private-key=$ANSIBLE_PRIVATE_KEY main.yml'
              /*  ansiblePlaybook disableHostKeyChecking: true, installation: 'ansible', inventory: 'ansible.inv', playbook: 'main.yml', vaultCredentialsId: 'KTvm-private-key'
-            */
+            
               echo "Hello"
             }
         }
         
-                stage("Deploy service on k8s-bm-staging") {
+  */
+stage("Deploy service on k8s-bm-staging") {
           steps {
             kubernetesDeploy(kubeconfigId: 'bm-staging-kubeconfig',
                configs: 'nodePOC.yaml',
