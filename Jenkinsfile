@@ -34,7 +34,7 @@ pipeline{
           steps {
               //sh 'pip install --upgrade requests==2.20.1'
               //sh 'echo -e "[defaults]\nremote_tmp     = /tmp/ansible-$USER\nsudo_user      = root\nsudo           = true" > ansible.cfg'
-              sh 'ansible --version'
+              //sh 'ansible --version'
               //sh 'mkdir /etc/ansible'
               //sh 'cp /app/ansible.cfg .'
               //sh 'cat /app/ansible.cfg'
