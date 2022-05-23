@@ -1,58 +1,38 @@
 ---
  - name:  provisioning EC2 instances using Ansible
    hosts: localhost
-   connection: local
+   become: true
    gather_facts: False
-   tags: provisioning
-
+ 
    vars:
-     keypair: devops-poc
-     instance_type: t2.micro
-     image: ami-05ba3a39a75be1ec4
-     wait: yes
-     group: webserver
-     count: 1
      region: ap-south-1
-     security_group: my-jenkins-security-grp
-   
-   tasks:
+     instance_type: t2.micro
+     ami: ami-05ba3a39a75be1ec4 # RedHat Linux 7.5
+     hosts_file: /app/ansible.inv
 
-     - name: Task # 1 - Create my security group
-       local_action: 
-         module: ec2_group
-         name: "{{ security_group }}"
-         description: Security Group for webserver Servers
+   tasks:
+     - name: Create an ec2 instance
+       ec2:
+         aws_access_key: AKIA2RKFMRF44V5BDVD2
+         aws_secret_key: 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
+         key_name: devops-poc
+         group: devops-poc-sg # security group name
+         instance_type: "{{ instance_type}}"
+         image: "{{ ami }}"
+         wait: true
+         wait_timeout: 500
          region: "{{ region }}"
-         rules:
-            - proto: tcp
-              from_port: 22
-              to_port: 22
-              cidr_ip: 0.0.0.0/0
-            - proto: tcp
-              from_port: 8080
-              to_port: 8080
-              cidr_ip: 0.0.0.0/0
-            - proto: tcp
-              from_port: 80
-              to_port: 80
-              cidr_ip: 0.0.0.0/0
-         rules_egress:
-            - proto: all
-              cidr_ip: 0.0.0.0/0
-       register: basic_firewall
-     - name: Task # 2 Launch the new EC2 Instance
-       local_action:  ec2 
-                      group={{ security_group }} 
-                      instance_type={{ instance_type}} 
-                      image={{ image }} 
-                      wait=true 
-                      region={{ region }} 
-                      keypair={{ keypair }}
-                      count={{count}}
+         count: 1 # default
+         count_tag:
+           Name: DevOps-POC
+         instance_tags:
+           Name: DevOps-POC
        register: ec2
-     - name: Task # 3 Add Tagging to EC2 instance
-       local_action: ec2_tag resource={{ item.id }} region={{ region }} state=present
-       with_items: "{{ ec2.instances }}"
-       args:
-         tags:
-           Name: MyTargetEc2Instance
+     - name: Save IP to inventory file
+       lineinfile:
+         dest: "{{hosts_file}}"
+         insertafter: '\[webservers\]'
+         line: "{{item.private_ip}}"
+       with_items: "{{ec2.instances}}"
+	   
+	   
