@@ -46,6 +46,15 @@ pipeline{
               echo "Hello"
             }
         }
+        
+                stage("Deploy service on k8s-bm-staging") {
+          steps {
+            kubernetesDeploy(kubeconfigId: 'bm-staging-kubeconfig',
+               configs: 'nodePOC.yaml',
+               enableConfigSubstitution: true)
+            }
+        }
+
 
 
     }
