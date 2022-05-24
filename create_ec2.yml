@@ -13,8 +13,8 @@
    tasks:
      - name: Create an ec2 instance
        ec2:
-         aws_access_key: AWS_ACCESS_KEY
-         aws_secret_key: AWS_SECRET_KEY
+         aws_access_key: $AWS_ACCESS_KEY
+         aws_secret_key: $AWS_SECRET_KEY
          key_name: devops-poc
          group: devops-poc-sg # security group name
          instance_type: "{{ instance_type}}"
@@ -43,4 +43,4 @@
          - Dockerfile
          - Jenkinsfile
          - nodePOC.yaml
-	 - main.yml
+         - main.yml
