@@ -36,11 +36,11 @@
          line: "{{item.public_ip}}"
        with_items: "{{ec2.instances}}"
      - name: Wait for SSH to come up
-	      wait_for:
-	        host: "{{ item.public_ip }}"
+       wait_for:
+         host: "{{ item.public_ip }}"
          port: 22
          state: started
-	    	   delay: 100
+         delay: 100
          timeout: 320
        with_items: "{{ec2.instances}}"
      - name: Ansible delete multiple file example
