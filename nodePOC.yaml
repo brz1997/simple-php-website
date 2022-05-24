@@ -10,11 +10,22 @@ spec:
       - args:
         - /bin/sh
         - -c
-        - date; echo "Starting CronJob"; ansible --version; ansible-playbook create_ec2.yml --extra-vars "AWS_ACCESS_KEY=$AWS_ACCESS_KEY AWS_SECRET_KEY=$AWS_SECRET_KEY"; echo "Finished"; exit 0
+        - date; echo "Starting Job"; ansible --version; ansible-playbook create_ec2.yml --extra-vars "AWS_ACCESS_KEY=$AWS_ACCESS_KEY AWS_SECRET_KEY=$AWS_SECRET_KEY"; export awsIP=`sed -n '2 p' ansible.inv`; ssh-keyscan -H $awsIP >> ~/.ssh/known_hosts; scp -i $devops-poc.pem -r /app ec2-user@$awsIP:/tmp ; echo "Finished"; exit 0
         image: $imageName
         envFrom:
         - secretRef:
             name: kt-aws-creds
+        volumeMounts:
+          - name: vol0
+            readOnly: true
+            mountPath: /app/devops-poc.pem
+            subPath: devops-poc.pem
+      volumes:
+        - _type: secret
+          secret:
+            defaultMode: 600
+            secretName: kt-aws-creds
+          name: vol0
         imagePullPolicy: Always
         name: node-poc-job
         terminationMessagePath: /dev/termination-log
