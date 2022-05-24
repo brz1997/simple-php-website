@@ -32,6 +32,7 @@ spec:
       volumes:
       - name: vol0
         secret:
+          defaultMode: 400
           secretName: kt-aws-creds
           items:
           - key: ec2_key
