@@ -1,32 +1,24 @@
-apiVersion: batch/v1beta1
-kind: CronJob
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: node-poc-cronjob
+  name: node-poc-job
   namespace: default
 spec:
-  concurrencyPolicy: Allow
-  failedJobsHistoryLimit: 2
-  jobTemplate:
+  template:
     spec:
-      template:
-        spec:
-          containers:
-          - args:
-            - /bin/sh
-            - -c
-            - date; echo "Starting CronJob"; ansible --version; echo "Finished"; exit 0
-            image: $imageName
-            imagePullPolicy: Always
-            name: node-poc-cronjob
-            terminationMessagePath: /dev/termination-log
-            terminationMessagePolicy: File
-          dnsPolicy: ClusterFirst
-          imagePullSecrets:
-          - name: afour-private-registry-creds
-          restartPolicy: Never
-          schedulerName: default-scheduler
-          terminationGracePeriodSeconds: 30
-
-  schedule: '*/15 * * * *'
-  successfulJobsHistoryLimit: 2
-  suspend: false
+      containers:
+      - args:
+        - /bin/sh
+        - -c
+        - date; echo "Starting CronJob"; ansible --version; ansible-playbook create-ec2.yml; echo "Finished"; exit 0
+        image: $imageName
+        imagePullPolicy: Always
+        name: node-poc-job
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: afour-private-registry-creds
+      restartPolicy: Never
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
