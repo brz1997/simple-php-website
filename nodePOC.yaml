@@ -19,13 +19,6 @@ spec:
           - name: vol0
             readOnly: true
             mountPath: /app/devops-poc.pem
-            subPath: devops-poc.pem
-      volumes:
-        - type: secret
-          secret:
-            defaultMode: 600
-            secretName: kt-aws-creds
-          name: vol0
         imagePullPolicy: Always
         name: node-poc-job
         terminationMessagePath: /dev/termination-log
@@ -36,3 +29,10 @@ spec:
       restartPolicy: Never
       schedulerName: default-scheduler
       terminationGracePeriodSeconds: 30
+      volumes:
+      - name: vol0
+        secret:
+          secretName: kt-aws-creds
+          items:
+          - key: devops-poc.pem
+            path: devops-poc.pem
