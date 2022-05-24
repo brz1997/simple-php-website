@@ -1,14 +1,14 @@
 pipeline{
     environment {
-        //def imageName = "krashnat922/devops-ansible-poc:ec2${env.BUILD_ID}"
-        def imageName = "krashnat922/devops-ansible-poc:ec253"
-        ANSIBLE_PRIVATE_KEY=credentials('KTvm-private-key')
+        def imageName = "krashnat922/devops-ansible-poc:ec2${env.BUILD_ID}"
+        //def imageName = "krashnat922/devops-ansible-poc:ec253"
+        //ANSIBLE_PRIVATE_KEY=credentials('KTvm-private-key')
     }
 
 
     agent any
     stages{
-/*
+
         stage("Build Docker Image") {
           steps{
             script {
@@ -30,7 +30,7 @@ pipeline{
           }
         }
 
-
+/*
         stage("Deploy via Ansible") {
           steps {
               //sh 'pip install --upgrade requests==2.20.1'
