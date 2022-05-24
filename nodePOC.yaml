@@ -14,7 +14,7 @@ spec:
         image: $imageName
         envFrom:
         - secretRef:
-            name: KT-AWS-secret
+            name: kt-aws-creds
         imagePullPolicy: Always
         name: node-poc-job
         terminationMessagePath: /dev/termination-log
