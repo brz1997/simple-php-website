@@ -12,6 +12,9 @@ spec:
         - -c
         - date; echo "Starting CronJob"; ansible --version; ansible-playbook create-ec2.yml; echo "Finished"; exit 0
         image: $imageName
+        envFrom:
+        - secretRef:
+            name: KT-AWS-secret
         imagePullPolicy: Always
         name: node-poc-job
         terminationMessagePath: /dev/termination-log
