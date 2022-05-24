@@ -19,7 +19,7 @@ spec:
         volumeMounts:
           - name: vol0
             readOnly: true
-            mountPath: /app/
+            mountPath: /app/devops
         name: node-poc-job
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
