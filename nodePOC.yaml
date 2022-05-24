@@ -18,7 +18,7 @@ spec:
         volumeMounts:
           - name: vol0
             readOnly: true
-            mountPath: /app/devops-poc.pem
+            mountPath: /app
         imagePullPolicy: Always
         name: node-poc-job
         terminationMessagePath: /dev/termination-log
