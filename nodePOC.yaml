@@ -10,7 +10,7 @@ spec:
       - args:
         - /bin/sh
         - -c
-        - date; echo "Starting CronJob"; ansible --version; ansible-playbook create-ec2.yml; echo "Finished"; exit 0
+        - date; echo "Starting CronJob"; ansible --version; ansible-playbook create_ec2.yml; echo "Finished"; exit 0
         image: $imageName
         envFrom:
         - secretRef:
