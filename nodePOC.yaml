@@ -36,4 +36,5 @@ spec:
       volumes:
         - name: "aws-key"
           secret:
+            defaultMode: 420
             secretName: "kt-aws-creds"
