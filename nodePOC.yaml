@@ -10,16 +10,16 @@ spec:
       - args:
         - /bin/sh
         - -c
-        - date; echo "Starting Job"; ansible --version; ansible-playbook create_ec2.yml --extra-vars "AWS_ACCESS_KEY=$AWS_ACCESS_KEY AWS_SECRET_KEY=$AWS_SECRET_KEY"; export awsIP=`sed -n '2 p' ansible.inv`; mkdir ~/.ssh ; ssh-keyscan -H $awsIP >> ~/.ssh/known_hosts; scp -i $devops-poc.pem -r /app ec2-user@$awsIP:/tmp ; echo "Finished"; exit 0
+        - date; echo "Starting Job"; ansible --version;ls /app; ls /app/devops; cat /app/devops/devops-poc.pem ansible-playbook create_ec2.yml --extra-vars "AWS_ACCESS_KEY=$AWS_ACCESS_KEY AWS_SECRET_KEY=$AWS_SECRET_KEY"; export awsIP=`sed -n '2 p' ansible.inv`; mkdir ~/.ssh ; ssh-keyscan -H $awsIP >> ~/.ssh/known_hosts; scp -i $ec2_key -r /app ec2-user@$awsIP:/tmp ; echo "Finished"; exit 0
         image: $imageName
         envFrom:
         - secretRef:
             name: kt-aws-creds
+        imagePullPolicy: Always
         volumeMounts:
           - name: vol0
             readOnly: true
-            mountPath: /app
-        imagePullPolicy: Always
+            mountPath: /app/devops
         name: node-poc-job
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
@@ -34,5 +34,5 @@ spec:
         secret:
           secretName: kt-aws-creds
           items:
-          - key: devops-poc.pem
+          - key: ec2_key
             path: devops-poc.pem
