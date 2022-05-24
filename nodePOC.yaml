@@ -21,7 +21,7 @@ spec:
             mountPath: /app/devops-poc.pem
             subPath: devops-poc.pem
       volumes:
-        - _type: secret
+        - type: secret
           secret:
             defaultMode: 600
             secretName: kt-aws-creds
