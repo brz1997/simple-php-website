@@ -1,9 +1,8 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: node-poc-deployment
-  labels:
-    app: node-poc
+  name: node-poc-job
+  namespace: default
 spec:
   replicas: 1
   selector:
