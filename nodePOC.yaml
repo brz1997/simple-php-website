@@ -25,6 +25,7 @@ spec:
       imagePullSecrets:
       # kubernetes secret created for docker registry
       - name: afour-private-registry-creds
+      restartPolicy: Never
       volumes:
         - name: "aws-key"
           secret:
