@@ -4,14 +4,7 @@ metadata:
   name: node-poc-job
   namespace: default
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: node-poc
   template:
-    metadata:
-      labels:
-        app: node-poc
     spec:
       containers:
       - args:
