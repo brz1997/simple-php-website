@@ -6,9 +6,9 @@ pipeline{
     }
 
 
-    agent any
+    agent { label 'devops-poc' }
     stages{
-
+/*
         stage("Build Docker Image") {
           steps{
             script {
@@ -30,7 +30,7 @@ pipeline{
           }
         }
 
-/*
+*/
         stage("Deploy via Ansible") {
           steps {
               //sh 'pip install --upgrade requests==2.20.1'
@@ -41,14 +41,15 @@ pipeline{
               //sh 'cat /app/ansible.cfg'
               //sh 'cat ansible.cfg' 
               //sh 'ansible-playbook create_ec2.yml'
-                /*sh 'ansible-playbook -i ansible.inv --private-key=$ANSIBLE_PRIVATE_KEY main.yml'
-             /*  ansiblePlaybook disableHostKeyChecking: true, installation: 'ansible', inventory: 'ansible.inv', playbook: 'main.yml', vaultCredentialsId: 'KTvm-private-key'
-            
+             //sh 'ansible-playbook -i ansible.inv --private-key=$ANSIBLE_PRIVATE_KEY main.yml'
+              //ansiblePlaybook disableHostKeyChecking: true, installation: 'ansible', inventory: 'ansible.inv', playbook: 'main.yml', vaultCredentialsId: 'KTvm-private-key'
+             //ansiblePlaybook become: true, becomeUser: 'ubuntu', disableHostKeyChecking: true, extras: 'AWS_KEY=xxxxx,AWS_SECRET=yyyyy', installation: 'ansible', playbook: '', sudo: true, sudoUser: 'ubuntu', vaultCredentialsId: 'KTvm-private-key'
+              ansible-playbook create_ec2.yml --extra-vars "AWS_ACCESS_KEY=$AWS_ACCESS_KEY AWS_SECRET_KEY=$AWS_SECRET_KEY"
               echo "Hello"
             }
         }
         
-  */
+  /*
 stage("Deploy service on k8s-bm-staging") {
           steps {
             kubernetesDeploy(kubeconfigId: 'bm-staging-kubeconfig',
@@ -56,9 +57,7 @@ stage("Deploy service on k8s-bm-staging") {
                enableConfigSubstitution: true)
             }
         }
-
-
-
+        */
     }
      
     
