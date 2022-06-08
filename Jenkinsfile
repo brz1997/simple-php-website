@@ -36,7 +36,7 @@ pipeline{
         stage("Deploy via Ansible") {
           steps {
               echo "$AWS_ACCESS_KEY_ID $AWS_SECRET_KEY_ID"
-              echo $AWS_ACCESS_KEY_ID
+             
               sh 'echo "$AWS_ACCESS_KEY_ID $AWS_SECRET_KEY_ID"'
               //sh 'pip install --upgrade requests==2.20.1'
               //sh 'echo -e "[defaults]\nremote_tmp     = /tmp/ansible-$USER\nsudo_user      = root\nsudo           = true" > ansible.cfg'
