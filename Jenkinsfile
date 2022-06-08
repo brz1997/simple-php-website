@@ -35,10 +35,8 @@ pipeline{
 */
         stage("Deploy via Ansible") {
           steps {
-              echo "$AWS_ACCESS_KEY_ID $AWS_SECRET_KEY_ID"
-             
-              sh 'echo "$AWS_ACCESS_KEY_ID $AWS_SECRET_KEY_ID"'
-              //sh 'pip install --upgrade requests==2.20.1'
+              
+             //sh 'pip install --upgrade requests==2.20.1'
               //sh 'echo -e "[defaults]\nremote_tmp     = /tmp/ansible-$USER\nsudo_user      = root\nsudo           = true" > ansible.cfg'
               //sh 'ansible --version'
               //sh 'mkdir /etc/ansible'
@@ -52,7 +50,13 @@ pipeline{
               sh '''yum install python python-pip awscli -y
               yum update -y && yum upgrade -y
               pip install boto boto3'''
-              sh 'ansible-playbook create_ec2.yml --extra-vars "AWS_ACCESS_KEY=$AWS_ACCESS_KEY_ID AWS_SECRET_KEY=$AWS_SECRET_KEY_ID"'
+           withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'kt_personal_aws_creds', secretKeyVariable: 'AWS_SECRET_KEY_ID']]) {
+              echo "$AWS_ACCESS_KEY_ID $AWS_SECRET_KEY_ID"
+             
+              sh 'echo "$AWS_ACCESS_KEY_ID $AWS_SECRET_KEY_ID"'
+               sh 'ansible-playbook create_ec2.yml --extra-vars "AWS_ACCESS_KEY=$AWS_ACCESS_KEY_ID AWS_SECRET_KEY=$AWS_SECRET_KEY_ID"'
+   
+}
               sh 'echo "Hello"'
             }
         }
