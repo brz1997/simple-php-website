@@ -1,8 +1,10 @@
 pipeline{
     environment {
-        def imageName = "krashnat922/devops-ansible-poc:ec2${env.BUILD_ID}"
+       // def imageName = "krashnat922/devops-ansible-poc:ec2${env.BUILD_ID}"
         //def imageName = "krashnat922/devops-ansible-poc:ec253"
         //ANSIBLE_PRIVATE_KEY=credentials('KTvm-private-key')
+        AWS_ACCESS_KEY    = credentials('kt_aws_access_key')
+        AWS_SECRET_KEY = credentials('kt_aws_secret_key')
     }
 
 
