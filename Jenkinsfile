@@ -46,9 +46,9 @@ pipeline{
              //sh 'ansible-playbook -i ansible.inv --private-key=$ANSIBLE_PRIVATE_KEY main.yml'
               //ansiblePlaybook disableHostKeyChecking: true, installation: 'ansible', inventory: 'ansible.inv', playbook: 'main.yml', vaultCredentialsId: 'KTvm-private-key'
              //ansiblePlaybook become: true, becomeUser: 'ubuntu', disableHostKeyChecking: true, extras: 'AWS_KEY=xxxxx,AWS_SECRET=yyyyy', installation: 'ansible', playbook: '', sudo: true, sudoUser: 'ubuntu', vaultCredentialsId: 'KTvm-private-key'
-              sh '''yum install python3 awscli -y
+              sh '''yum install python python-pip awscli -y
               yum update -y && yum upgrade -y
-              pip3 install boto boto3'''
+              pip install boto boto3'''
               sh 'ansible-playbook create_ec2.yml --extra-vars "AWS_ACCESS_KEY=$AWS_ACCESS_KEY AWS_SECRET_KEY=$AWS_SECRET_KEY"'
               sh 'echo "Hello"'
             }
