@@ -46,8 +46,8 @@ pipeline{
              //sh 'ansible-playbook -i ansible.inv --private-key=$ANSIBLE_PRIVATE_KEY main.yml'
               //ansiblePlaybook disableHostKeyChecking: true, installation: 'ansible', inventory: 'ansible.inv', playbook: 'main.yml', vaultCredentialsId: 'KTvm-private-key'
              //ansiblePlaybook become: true, becomeUser: 'ubuntu', disableHostKeyChecking: true, extras: 'AWS_KEY=xxxxx,AWS_SECRET=yyyyy', installation: 'ansible', playbook: '', sudo: true, sudoUser: 'ubuntu', vaultCredentialsId: 'KTvm-private-key'
-              ansible-playbook create_ec2.yml --extra-vars "AWS_ACCESS_KEY=$AWS_ACCESS_KEY AWS_SECRET_KEY=$AWS_SECRET_KEY"
-              echo "Hello"
+              sh 'ansible-playbook create_ec2.yml --extra-vars "AWS_ACCESS_KEY=$AWS_ACCESS_KEY AWS_SECRET_KEY=$AWS_SECRET_KEY"'
+              sh 'echo "Hello"'
             }
         }
         
