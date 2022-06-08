@@ -3,8 +3,8 @@ pipeline{
        // def imageName = "krashnat922/devops-ansible-poc:ec2${env.BUILD_ID}"
         //def imageName = "krashnat922/devops-ansible-poc:ec253"
         //ANSIBLE_PRIVATE_KEY=credentials('KTvm-private-key')
-        AWS_ACCESS_KEY-ID = credentials('kt_aws_access_key')
-        AWS_SECRET_KEY-ID = credentials('kt_aws_secret_key')
+        AWS_ACCESS_KEY_ID = credentials('kt_aws_access_key')
+        AWS_SECRET_KEY_ID = credentials('kt_aws_secret_key')
     }
 
 
@@ -35,8 +35,9 @@ pipeline{
 */
         stage("Deploy via Ansible") {
           steps {
-              echo "$AWS_ACCESS_KEY-ID $AWS_SECRET_KEY-ID"
-              sh 'echo "$AWS_ACCESS_KEY-ID $AWS_SECRET_KEY-ID"'
+              echo "$AWS_ACCESS_KEY_ID $AWS_SECRET_KEY_ID"
+              echo $AWS_ACCESS_KEY_ID
+              sh 'echo "$AWS_ACCESS_KEY_ID $AWS_SECRET_KEY_ID"'
               //sh 'pip install --upgrade requests==2.20.1'
               //sh 'echo -e "[defaults]\nremote_tmp     = /tmp/ansible-$USER\nsudo_user      = root\nsudo           = true" > ansible.cfg'
               //sh 'ansible --version'
@@ -51,7 +52,7 @@ pipeline{
               sh '''yum install python python-pip awscli -y
               yum update -y && yum upgrade -y
               pip install boto boto3'''
-              sh 'ansible-playbook create_ec2.yml --extra-vars "AWS_ACCESS_KEY=$AWS_ACCESS_KEY-ID AWS_SECRET_KEY=$AWS_SECRET_KEY-ID"'
+              sh 'ansible-playbook create_ec2.yml --extra-vars "AWS_ACCESS_KEY=$AWS_ACCESS_KEY_ID AWS_SECRET_KEY=$AWS_SECRET_KEY_ID"'
               sh 'echo "Hello"'
             }
         }
