@@ -43,7 +43,7 @@ pipeline{
 
           // withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'kt_personal_aws_creds', secretKeyVariable: 'AWS_SECRET_KEY_ID']]) {
               sh 'ansible-playbook create_ec2.yml --extra-vars "AWS_ACCESS_KEY=$AWS_ACCESS_KEY_ID AWS_SECRET_KEY=$AWS_SECRET_KEY_ID"'
-              sh 'ansible-playbook -i ansible.inv --private-key=$AWS_PRIVATE_KEY ec2-configure.yml'
+              sh 'ansible-playbook -i ansible.inv --private-key $AWS_PRIVATE_KEY ec2-configure.yml'
                      
                   
 //}
