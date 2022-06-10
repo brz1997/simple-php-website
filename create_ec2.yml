@@ -8,7 +8,7 @@
      region: ap-south-1
      instance_type: t2.micro
      ami: ami-05ba3a39a75be1ec4 # RedHat Linux 7.5
-     hosts_file: /app/ansible.inv
+     hosts_file: ansible.inv
 
    tasks:
      - name: Create an ec2 instance
