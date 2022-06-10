@@ -49,7 +49,6 @@ pipeline{
              //ansiblePlaybook become: true, becomeUser: 'ubuntu', disableHostKeyChecking: true, extras: 'AWS_KEY=xxxxx,AWS_SECRET=yyyyy', installation: 'ansible', playbook: '', sudo: true, sudoUser: 'ubuntu', vaultCredentialsId: 'KTvm-private-key'
               sh '''yum install python python-pip awscli -y
               yum update -y && yum upgrade -y
-              pip install --upgrade pip
               pip install boto boto3'''
               withAws(credentials: 'kt_personal_aws_creds') {
    sh 'env'
