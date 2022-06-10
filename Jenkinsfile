@@ -4,7 +4,7 @@ pipeline{
         //def imageName = "krashnat922/devops-ansible-poc:ec253"
         //ANSIBLE_PRIVATE_KEY=credentials('KTvm-private-key')
        // AWS_ACCESS_KEY_ID = credentials('kt_aws_access_key')
-        //AWS_SECRET_KEY_ID = credentials('kt_aws_secret_key')
+       AWS_SECRET_KEY_ID = credentials('kt_aws_secret_key')
     }
 
 
@@ -36,7 +36,7 @@ pipeline{
         stage("Deploy via Ansible") {
           steps {
               withAWS(credentials: 'kt_personal_aws_creds') {
-    sh 'env'
+    sh 'env | grep -i aws'
 }
              //sh 'pip install --upgrade requests==2.20.1'
               //sh 'echo -e "[defaults]\nremote_tmp     = /tmp/ansible-$USER\nsudo_user      = root\nsudo           = true" > ansible.cfg'
