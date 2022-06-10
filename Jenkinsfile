@@ -2,7 +2,7 @@ pipeline{
     environment {
        // def imageName = "krashnat922/devops-ansible-poc:ec2${env.BUILD_ID}"
         //def imageName = "krashnat922/devops-ansible-poc:ec253"
-        //ANSIBLE_PRIVATE_KEY=credentials('KTvm-private-key')
+       ANSIBLE_PRIVATE_KEY = credentials('KT_aws_private_key')
        AWS_ACCESS_KEY_ID = credentials('kt_aws_access_key')
        AWS_SECRET_KEY_ID = credentials('kt_aws_secret_key')
     }
@@ -43,6 +43,7 @@ pipeline{
 
           // withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'kt_personal_aws_creds', secretKeyVariable: 'AWS_SECRET_KEY_ID']]) {
               sh 'ansible-playbook create_ec2.yml --extra-vars "AWS_ACCESS_KEY=$AWS_ACCESS_KEY_ID AWS_SECRET_KEY=$AWS_SECRET_KEY_ID"'
+              sh 'ansible-playbook -i ansible.inv --private-key=$KT_aws_private_key ec2-configure.yml'
                      
                   
 //}
@@ -54,7 +55,6 @@ pipeline{
               //sh 'cat /app/ansible.cfg'
               //sh 'cat ansible.cfg' 
               //sh 'ansible-playbook create_ec2.yml'
-             //sh 'ansible-playbook -i ansible.inv --private-key=$ANSIBLE_PRIVATE_KEY main.yml'
               //ansiblePlaybook disableHostKeyChecking: true, installation: 'ansible', inventory: 'ansible.inv', playbook: 'main.yml', vaultCredentialsId: 'KTvm-private-key'
              //ansiblePlaybook become: true, becomeUser: 'ubuntu', disableHostKeyChecking: true, extras: 'AWS_KEY=xxxxx,AWS_SECRET=yyyyy', installation: 'ansible', playbook: '', sudo: true, sudoUser: 'ubuntu', vaultCredentialsId: 'KTvm-private-key'
 
