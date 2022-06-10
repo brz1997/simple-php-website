@@ -2,7 +2,7 @@ pipeline{
     environment {
        // def imageName = "krashnat922/devops-ansible-poc:ec2${env.BUILD_ID}"
         //def imageName = "krashnat922/devops-ansible-poc:ec253"
-       AWS_PRIVATE_KEY = credentials('kt_aws_private_key')
+       //AWS_PRIVATE_KEY = credentials('kt_aws_private_key')
        AWS_ACCESS_KEY_ID = credentials('kt_aws_access_key')
        AWS_SECRET_KEY_ID = credentials('kt_aws_secret_key')
     }
@@ -43,8 +43,9 @@ pipeline{
 
           // withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'kt_personal_aws_creds', secretKeyVariable: 'AWS_SECRET_KEY_ID']]) {
               sh 'ansible-playbook create_ec2.yml --extra-vars "AWS_ACCESS_KEY=$AWS_ACCESS_KEY_ID AWS_SECRET_KEY=$AWS_SECRET_KEY_ID"'
-              sh 'ansible-playbook -i ansible.inv --private-key $AWS_PRIVATE_KEY ec2-configure.yml'
-                     
+              withCredentials([sshUserPrivateKey(credentialsId: 'kt_aws_private_key', keyFileVariable: 'kt_aws_key', usernameVariable: 'kt_aws_user')]) {
+                  sh 'ansible-playbook -i ansible.inv --private-key ${kt_aws_key}  -u ${kt_aws_user}  ec2-configure.yml'
+}      
                   
 //}
              //sh 'pip install --upgrade requests==2.20.1'
