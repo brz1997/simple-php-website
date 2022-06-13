@@ -42,7 +42,7 @@ pipeline{
               pip install boto boto3'''
             sh 'echo $AWS_PRIVATE_KEY > devops.pem'
           // withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'kt_personal_aws_creds', secretKeyVariable: 'AWS_SECRET_KEY_ID']]) {
-              sh 'ansible-playbook create_ec2.yml -i ansible.inv --extra-vars "AWS_ACCESS_KEY=$AWS_ACCESS_KEY_ID AWS_SECRET_KEY=$AWS_SECRET_KEY_ID"'
+              sh 'ansible-playbook create_ec2.yml --extra-vars "AWS_ACCESS_KEY=$AWS_ACCESS_KEY_ID AWS_SECRET_KEY=$AWS_SECRET_KEY_ID"'
      
               //ansiblePlaybook become: true, becomeUser: 'ubuntu', credentialsId: 'kt_aws_private_key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'ansible.inv', playbook: 'ec2-configure.yml', sudoUser: 'ubuntu'
               //withCredentials([sshUserPrivateKey(credentialsId: 'kt_aws_private_key', keyFileVariable: 'kt_aws_key', usernameVariable: 'kt_aws_user')]) {
