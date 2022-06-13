@@ -52,7 +52,7 @@
          - Jenkinsfile
          - nodePOC.yaml
          - main.yml
-
+         
  - name: Configure EC2 Instance
    hosts: webservers
    become: true
