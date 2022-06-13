@@ -35,7 +35,6 @@
          insertafter: '\[webservers\]'
          line: "{{item.public_ip}}"
        with_items: "{{ec2.instances}}"
-     - meta: refresh_inventory
      - name: Wait for SSH to come up
        wait_for:
          host: "{{ item.public_ip }}"
@@ -53,8 +52,6 @@
          - Jenkinsfile
          - nodePOC.yaml
          - main.yml
-     - meta: refresh_inventory
-
 
  - name: Configure EC2 Instance
    hosts: webservers
