@@ -52,3 +52,20 @@
          - Jenkinsfile
          - nodePOC.yaml
          - main.yml
+
+
+ - name: Configure EC2 Instance
+   hosts: webservers
+   become: true
+   gather_facts: False   
+   
+   tasks:
+    - name: Copying the Directory contents (sub directories/files)
+      become: true 
+      copy:
+        src: ./
+        dest: ~/
+        owner: ubuntu
+        group: ubuntu        
+        mode: 0700
+  
