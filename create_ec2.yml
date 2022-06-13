@@ -66,8 +66,6 @@
       become: true 
       copy:
         src: ./
-        dest: ~/
-        owner: ubuntu
-        group: ubuntu        
+        dest: ~/      
         mode: 0700
   
