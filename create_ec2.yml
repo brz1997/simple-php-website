@@ -53,7 +53,7 @@
          - Jenkinsfile
          - nodePOC.yaml
          - main.yml
-      - meta: refresh_inventory
+     - meta: refresh_inventory
 
 
  - name: Configure EC2 Instance
