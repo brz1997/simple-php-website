@@ -28,11 +28,12 @@
          instance_tags:
            Name: DevOps-POC
        register: ec2
-    - name: Add new instance to host group
-      add_host:
-        hostname: "{{ item.public_ip }}"
-        groupname: webservers
-      with_items: "{{ ec2.instances }}"
+       
+     - name: Add new instance to host group
+       add_host:
+         hostname: "{{ item.public_ip }}"
+         groupname: webservers
+       with_items: "{{ ec2.instances }}"
 
      - name: Wait for SSH to come up
        wait_for:
