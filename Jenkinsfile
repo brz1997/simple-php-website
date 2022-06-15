@@ -40,6 +40,8 @@ pipeline{
               sh '''yum install python python-pip awscli -y
               yum update -y && yum upgrade -y
               pip install boto boto3'''
+              
+              sh 'yes | cp  ansible.inv /etc/ansible/hosts'
           // withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'kt_personal_aws_creds', secretKeyVariable: 'AWS_SECRET_KEY_ID']]) {
               sh 'ansible-playbook create_ec2_instance.yml --extra-vars "AWS_ACCESS_KEY=$AWS_ACCESS_KEY_ID AWS_SECRET_KEY=$AWS_SECRET_KEY_ID"'
      
