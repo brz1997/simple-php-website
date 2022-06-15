@@ -52,8 +52,8 @@ pipeline{
                   ssh-keyscan -H $ec2_publicIP >> ~/.ssh/known_hosts
                   
                   ssh ubuntu@$ec2_publicIP "mkdir ~/php-app; sudo apt-get update -y && sudo apt-get upgrade -y; sudo apt-get install php python -y; python --version"
-                  scp -r $(pwd) ubuntu@$ec2_publicIP:~/php-app/ 
-                  ssh ubuntu@$ec2_publicIP "cd ~/php-app; php -S 0.0.0.0:8088 &"
+                  scp -r $(pwd)/* ubuntu@$ec2_publicIP:~/php-app/ 
+                  ssh ubuntu@$ec2_publicIP "cd ~/php-app; php -S 0.0.0.0:8088 < /dev/null &> /dev/null &"
                   '''
                   
               }
