@@ -42,6 +42,10 @@
          insertafter: '\[webservers\]'
          line: "{{item.public_ip}}"
        with_items: "{{ec2.instances}}"
+     - name: Write Public IP to file
+       copy: 
+         content: "{{ item.public_ip }}" 
+         dest: /ec2_publicIP
      - name: Ansible delete multiple file example
        file:
          path: "{{ item }}"
