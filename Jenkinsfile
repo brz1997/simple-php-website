@@ -45,9 +45,9 @@ pipeline{
           // withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'kt_personal_aws_creds', secretKeyVariable: 'AWS_SECRET_KEY_ID']]) {
               sh 'ansible-playbook create_ec2_instance.yml --extra-vars "AWS_ACCESS_KEY=$AWS_ACCESS_KEY_ID AWS_SECRET_KEY=$AWS_SECRET_KEY_ID"'
      sshagent(credentials : ['kt_aws_private_key']){
-        sh'ec2_publicIP=$(cat ./ec2_publicIP)'
+        sh 'ec2_publicIP=$(cat ./ec2_publicIP)'
 
-   sh "ssh ubuntu@$ec2_publicIP df -mh"
+   sh 'ssh ubuntu@$ec2_publicIP df -mh'
 
 }
               //ansiblePlaybook become: true, becomeUser: 'ubuntu', credentialsId: 'kt_aws_private_key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'ansible.inv', playbook: 'ec2-configure.yml', sudoUser: 'ubuntu'
