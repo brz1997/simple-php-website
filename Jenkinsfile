@@ -47,6 +47,8 @@ pipeline{
    
               sshagent(credentials : ['kt_aws_private_key']){
                   sh ''' ec2_publicIP=$(cat /etc/ansible/ec2_publicIP)
+                  ls -la
+                  ls -la ../
                   ssh-keyscan -H $ec2_publicIP >> ~/.ssh/known_hosts
                   
                   ssh ubuntu@$ec2_publicIP "mkdir ~/php-app; sudo apt-get update -y && sudo apt-get upgrade -y; sudo apt-get install php python -y; python --version"
