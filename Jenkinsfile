@@ -47,7 +47,7 @@ pipeline{
    
               sshagent(credentials : ['kt_aws_private_key']){
                   sh ''' ec2_publicIP=$(cat /etc/ansible/ec2_publicIP)
-                  ssh ubuntu@$ec2_publicIP "df -mh; sudo apt-get update -y && sudo apt-get upgrade -y; sudo apt-get install php python; python --version"'''
+                  ssh -oStrictHostKeyChecking=no ubuntu@$ec2_publicIP "df -mh; sudo apt-get update -y && sudo apt-get upgrade -y; sudo apt-get install php python; python --version"'''
                   
               }
               //ansiblePlaybook become: true, becomeUser: 'ubuntu', credentialsId: 'kt_aws_private_key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'ansible.inv', playbook: 'ec2-configure.yml', sudoUser: 'ubuntu'
