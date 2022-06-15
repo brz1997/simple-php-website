@@ -44,12 +44,11 @@ pipeline{
               sh 'yes | cp  ansible.inv /etc/ansible/hosts'
           // withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'kt_personal_aws_creds', secretKeyVariable: 'AWS_SECRET_KEY_ID']]) {
               sh 'ansible-playbook create_ec2_instance.yml --extra-vars "AWS_ACCESS_KEY=$AWS_ACCESS_KEY_ID AWS_SECRET_KEY=$AWS_SECRET_KEY_ID"'
-     sshagent(credentials : ['kt_aws_private_key']){
-        sh 'ec2_publicIP=$(cat ./ec2_publicIP)'
-
-   sh 'ssh ubuntu@$ec2_publicIP df -mh'
-
-}
+   sh 'ec2_publicIP=$(cat /etc/ansible/ec2_publicIP)'
+              sshagent(credentials : ['kt_aws_private_key']){
+                  sh 'ssh ubuntu@$ec2_publicIP "df -mh; sudo apt-get update -y && sudo apt-get upgrade -y; sudo apt-get install php python; python --version"'
+                  
+              }
               //ansiblePlaybook become: true, becomeUser: 'ubuntu', credentialsId: 'kt_aws_private_key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'ansible.inv', playbook: 'ec2-configure.yml', sudoUser: 'ubuntu'
               //withCredentials([sshUserPrivateKey(credentialsId: 'kt_aws_private_key', keyFileVariable: 'kt_aws_key', usernameVariable: 'kt_aws_user')]) {
                 //  sh 'ansible-playbook -i ansible.inv --private-key ${kt_aws_key}  -u ${kt_aws_user}  ec2-configure.yml'
