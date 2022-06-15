@@ -8,7 +8,7 @@
      region: ap-south-1
      instance_type: t2.micro
      ami: ami-05ba3a39a75be1ec4 # RedHat Linux 7.5
-     hosts_file: /var/lib/jenkins/workspace/PHP-POC/ansible.inv
+     hosts_file: /etc/ansible/hosts
 
    tasks:
      - name: Create an ec2 instance
