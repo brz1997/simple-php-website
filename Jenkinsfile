@@ -16,7 +16,7 @@ pipeline{
               apt-get update -y && apt-get upgrade -y
               pip install boto boto3''' */
               
-              sh 'yes | cp  ansible.inv /etc/ansible/hosts'
+             // sh 'yes | cp  ansible.inv /etc/ansible/hosts'
               sh 'ansible-playbook create_ec2_instance.yml --extra-vars "AWS_ACCESS_KEY=$AWS_ACCESS_KEY_ID AWS_SECRET_KEY=$AWS_SECRET_KEY_ID"'
    
               sshagent(credentials : ['kt_aws_private_key']){
