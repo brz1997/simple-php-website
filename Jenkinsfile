@@ -1,8 +1,10 @@
 pipeline{
     environment {
        AWS_PRIVATE_KEY = credentials('kt_aws_private_key')
-       AWS_ACCESS_KEY_ID = credentials('kt_aws_access_key')
-       AWS_SECRET_KEY_ID = credentials('kt_aws_secret_key')
+     //  AWS_ACCESS_KEY_ID = credentials('kt_aws_access_key')
+    //   AWS_SECRET_KEY_ID = credentials('kt_aws_secret_key')
+       AWS_ACCESS_KEY_ID = $kt_aws_access_key
+       AWS_SECRET_KEY_ID = $kt_aws_secret_key
     }
 
 
