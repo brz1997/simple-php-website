@@ -10,8 +10,8 @@ pipeline{
     stages{
         stage("Deploy via Ansible") {
           steps {
-              sh '''yum install python python-pip awscli -y
-              yum update -y && yum upgrade -y
+              sh '''apt-get install python python-pip awscli -y
+              apt-get update -y && apt-get upgrade -y
               pip install boto boto3'''
               
               sh 'yes | cp  ansible.inv /etc/ansible/hosts'
